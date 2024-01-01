@@ -1,4 +1,4 @@
-
+﻿
 #ifndef EXTRA_H
 #define EXTRA_H
 
@@ -140,685 +140,493 @@ inline void lookat(ofVec3f cam, ofVec3f look, ofVec3f up) {
 
 
 
+
+void drawBase(GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat height) {
+
+
+
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x0, -y1, 0);
+	glEnd();
+
+
+	//top
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, height);
+	glVertex3f(x1, -y0, height);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+	//left side
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x0, -y1, 0);
+	glVertex3f(x0, -y1, height);
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+	//back side
+	glBegin(GL_QUADS);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x1, -y0, height);
+	glEnd();
+
+	//right side
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y0, height);
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y1, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+
+
+}
+
+
+
+
+
+
+void drawBuilding(GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat height, ofImage img) {
+
+	glEnable(GL_TEXTURE);
+
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	img.bind();
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x0, -y1, 0);
+	glEnd();
+
+
+	//top
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, height);
+	glVertex3f(x1, -y0, height);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+	//left side
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1);  
+	glVertex3f(x0, -y0, 0);
+	glTexCoord2f(1, 1);  
+	glVertex3f(x0, -y1, 0);
+	glTexCoord2f(1, 0);  
+	glVertex3f(x0, -y1, height);
+	glTexCoord2f(0, 0); 
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+
+	//back side
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1); 
+	glVertex3f(x1, -y0, 0);
+	glTexCoord2f(1, 1);  
+	glVertex3f(x1, -y1, 0);
+	glTexCoord2f(1, 0);  
+	glVertex3f(x1, -y1, height);
+	glTexCoord2f(0, 0);  
+	glVertex3f(x1, -y0, height);
+	glEnd();
+
+	//right side
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1);  
+	glVertex3f(x0, -y0, 0);
+	glTexCoord2f(1, 1);  
+	glVertex3f(x1, -y0, 0);
+	glTexCoord2f(1, 0);  
+	glVertex3f(x1, -y0, height);
+	glTexCoord2f(0, 0);  
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+	//bottom side
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1);  
+	glVertex3f(x0, -y1, 0);
+	glTexCoord2f(1, 1);
+	glVertex3f(x1, -y1, 0);
+	glTexCoord2f(1, 0);  
+	glVertex3f(x1, -y1, height);
+	glTexCoord2f(0, 0);  
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+
+	img.unbind();
+	glDisable(GL_TEXTURE);
+}
+
+
+void drawWalkway(GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat height, ofImage img) {
+
+	glEnable(GL_TEXTURE);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	img.bind();
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x0, -y1, 0);
+	glEnd();
+
+
+	//top
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0);
+	glVertex3f(x0, -y0, height);
+	glTexCoord2f(1, 0);
+	glVertex3f(x1, -y0, height);
+	glTexCoord2f(1, 1);
+	glVertex3f(x1, -y1, height);
+	glTexCoord2f(0, 1);
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+	//left side
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x0, -y1, 0);
+	glVertex3f(x0, -y1, height);
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+	//back side
+	glBegin(GL_QUADS);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x1, -y0, height);
+	glEnd();
+
+	//right side
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y0, 0);
+	glVertex3f(x1, -y0, 0);
+	glVertex3f(x1, -y0, height);
+	glVertex3f(x0, -y0, height);
+	glEnd();
+
+
+	glBegin(GL_QUADS);
+	glVertex3f(x0, -y1, 0);
+	glVertex3f(x1, -y1, 0);
+	glVertex3f(x1, -y1, height);
+	glVertex3f(x0, -y1, height);
+	glEnd();
+
+	img.unbind();
+	glDisable(GL_TEXTURE);
+
+}
+
+
 //base
-inline void base(GLint m, GLint n) {
+inline void base() {
+
 
 	glPushMatrix();
-	glTranslated(0., -0.01, 0.);
 	glRotated(-90, 1, 0, 0);
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat x0 = -0.5;
+	GLfloat y0 = -0.5;
+	GLfloat x1 = 0.5;
+	GLfloat y1 = 0.5;
 
-	glBegin(GL_QUADS);
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			glVertex2d(i * x_step + x_start, j * y_step + y_start);
-			glVertex2d(i * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, j * y_step + y_start);
-		}
-	}
-	glEnd();
+	GLfloat height = -0.001;
+	drawBase(x0, y0, x1, y1, height);
 
 	glPopMatrix();
 }
 
-//sand
-inline void sandBase(GLint m, GLint n) {
 
-	glColor3f(211 / 255.0, 211 / 255.0, 211.0 / 255.0);
-	glPushMatrix();
-	glTranslated(0., -0.01, 0.);
-	glRotated(-90, 1, 0, 0);
+inline void parkingLot() {
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
-
-	glBegin(GL_QUADS);
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			glVertex2d(i * x_step + x_start, j * y_step + y_start);
-			glVertex2d(i * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, j * y_step + y_start);
-		}
-	}
-	glEnd();
-
-	glPopMatrix();
-}
-
-//lake
-inline void lake(GLint m, GLint n) {
-
-	glColor3f(123.0 / 255.0, 167.0 / 255.0, 201.0 / 255.0);
-
-	glPushMatrix();
-	glTranslated(0., -0.01, 0.);
-	glRotated(-90, 1, 0, 0);
-
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
-
-	glBegin(GL_QUADS);
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			glVertex2d(i * x_step + x_start, j * y_step + y_start);
-			glVertex2d(i * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, (j + 1) * y_step + y_start);
-			glVertex2d((i + 1) * x_step + x_start, j * y_step + y_start);
-		}
-	}
-	glEnd();
-	glPopMatrix();
-}
-
-
-inline void garden(GLint m, GLint n) {
 
 	glPushMatrix();
 	glRotated(-90, 1, 0, 0);
 
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
+	GLfloat height = 0.001;
 
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat x0 = -0.35;
+	GLfloat y0 = -0.45;
+	GLfloat x1 = 0.35;
+	GLfloat y1 = -0.47;
 
+	drawBase(x0, y0, x1, y1, height);
 
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
+	x0 = -0.35;
+	y0 = -0.45;
+	x1 = -0.33; 
+	y1 = 0.35;
 
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
+	drawBase(x0, y0, x1, y1, height);
 
-			GLfloat height = 0;
+	x0 = 0.35;
+	y0 = -0.45;
+	x1 = 0.33;
+	y1 = 0.35;
 
+	drawBase(x0, y0, x1, y1, height);
 
-			if (i == 0 || j == 0 || i == 6 || j == 6) {
-				glColor3f(0.3, 0.3, 0.3);
-
-			}
-			else {
-				glColor3f(117.0 / 255.0, 148.0 / 255.0, 101.0 / 255.0);
-
-			}
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
 	glPopMatrix();
 
-}
+} 
 
-inline void parkingLot(GLint m, GLint n) {
-
-	glPushMatrix();
-	glRotated(-90, 1, 0, 0);
-
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
-
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
-
-
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
-
-			GLfloat height = 0;
-
-			if (i == 0 || j == 0 || i == 6 || ((j == 6) && (i != 3 && i != 2))) {
-
-				height = 0.03;
-				glColor3f(0.5, 0.5, 0.5);
-			}
-			else {
-				height = 0;
-				glColor3f(0.3, 0.3, 0.3);
-
-			}
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
-	glPopMatrix();
-}
 
 //park
-inline void park(GLint m, GLint n) {
+inline void pond() {
 
 	glPushMatrix();
 	glRotated(-90, 1, 0, 0);
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
+	GLfloat x0 = -0.28;
+	GLfloat y0 = -0.28;
+	GLfloat x1 = 0.28;
+	GLfloat y1 = 0.28;
 
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat height = 0.013;
 
-
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
-
-			GLfloat height = 0;
-
-
-			if (i == 0 || j == 0 || i == 6 || j == 6) {
-				glColor3f(117.0 / 255.0, 148.0 / 255.0, 101.0 / 255.0);
-
-			}
-			else {
-				glColor3f(123.0 / 255.0, 167.0 / 255.0, 201.0 / 255.0);
-
-			}
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
-	glPopMatrix();
-}
-
-inline void building(GLint m, GLint n) {
-
-	glPushMatrix();
-	glRotated(-90, 1, 0, 0);
-
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
-
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
-
-
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
-
-			GLfloat height = 0;
-
-			// building 1
-			if ((i == 1 || i == 2) && (j == 1 || j == 2 || j == 3 || j == 4 || j == 5)) {
-
-				height = 1.0;
-				glColor3f(0.9, 0.9, 0.89);
-			}
-
-			else if ((j == 1 || j == 2) && (i == 3 || i == 4 || i == 5)) {
-
-				height = 0.01;
-				glColor3f(117.0 / 255.0, 148.0 / 255.0, 101.0 / 255.0);
-			}
-
-			// building 2
-			else if ((i == 4 || i == 5) && (j == 4 || j == 5)) {
-
-				height = 0.5;
-				glColor3f(0.74, 0.73, 0.75);
-			}
-
-			else {
-				height = 0.03;
-				glColor3f(0.6, 0.6, 0.6);
-			}
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
-
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
+	drawBase(x0, y0, x1, y1, height);
+	
 	glPopMatrix();
 
 }
 
-void drawBuilding(GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat height) {
 
-	glBegin(GL_QUADS);
-	glVertex3f(x0, -y0, 0);
-	glVertex3f(x1, -y0, 0);
-	glVertex3f(x1, -y1, 0);
-	glVertex3f(x0, -y1, 0);
-	glEnd();
 
-	glBegin(GL_QUADS);
-	glVertex3f(x0, -y0, height);
-	glVertex3f(x1, -y0, height);
-	glVertex3f(x1, -y1, height);
-	glVertex3f(x0, -y1, height);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glVertex3f(x0, -y0, 0);
-	glVertex3f(x0, -y1, 0);
-	glVertex3f(x0, -y1, height);
-	glVertex3f(x0, -y0, height);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glVertex3f(x1, -y0, 0);
-	glVertex3f(x1, -y1, 0);
-	glVertex3f(x1, -y1, height);
-	glVertex3f(x1, -y0, height);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glVertex3f(x0, -y0, 0);
-	glVertex3f(x1, -y0, 0);
-	glVertex3f(x1, -y0, height);
-	glVertex3f(x0, -y0, height);
-	glEnd();
-
-	glBegin(GL_QUADS);
-	glVertex3f(x0, -y1, 0);
-	glVertex3f(x1, -y1, 0);
-	glVertex3f(x1, -y1, height);
-	glVertex3f(x0, -y1, height);
-	glEnd();
-}
-
-inline void bigBuilding(GLint m, GLint n) {
+//park
+inline void park() {
 
 	glPushMatrix();
 	glRotated(-90, 1, 0, 0);
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
+	GLfloat x0 = -0.35;
+	GLfloat y0 = -0.35;
+	GLfloat x1 = 0.35;
+	GLfloat y1 = 0.50;
 
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat height = 0.009;
+	drawBase(x0, y0, x1, y1, height);
 
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
-
-			GLfloat height = 1.1;
-			glColor3f(0.7, 0.7, 0.7);
-
-			//walkway
-			if (i == 1 || i == 5 || j == 1 || j == 5) {
-				height = 0.03;
-				glColor3f(0.6, 0.6, 0.6);
-			}
-			//road
-			if (i == 0 || i == 6 || j == 0 || j == 6) {
-				height = 0;
-				glColor3f(0.3, 0.3, 0.3);
-			}
-
-			//main building
-			drawBuilding(x0, y0, x1, y1, height);
-
-			//the top floor
-			if (i == 3 && j == 3) {
-				//smaller building
-				GLfloat topHeight = 0.1;
-				drawBuilding(x0, y0, x1, y1, height + topHeight);
-			}
-		}
-	}
 	glPopMatrix();
+
 }
 
-inline void building2(GLint m, GLint n, GLfloat randomHeights[3][3], ofColor colors[3][3]) {
+//lamp
+inline void lamp() {
 
 	glPushMatrix();
 	glRotated(-90, 1, 0, 0);
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
+	GLfloat x0 = -0.25;
+	GLfloat y0 = -0.25;
+	GLfloat x1 = -0.242;
+	GLfloat y1 = -0.242;
 
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat height = 0.2;
+	drawBase(x0, y0, x1, y1, height);
+
+	glTranslatef(0, 0, 0.2);
+
+	x0 = -0.29;
+	y0 = -0.252;
+	x1 = -0.242;
+	y1 = -0.24;
+
+	height = 0.009;
+	drawBase(x0, y0, x1, y1, height);
+	glPopMatrix();
+
+}
+
+inline void building(ofImage img1, ofImage img2, ofImage img3){
 
 
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
+	glPushMatrix();
+	glRotated(-90, 1, 0, 0);
 
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
+	// building 1
 
-			GLfloat height = randomHeights[i - 2][j - 2];
+	GLfloat x0 = -0.3;
+	GLfloat y0 = -0.3;
+	GLfloat x1 = 0;
+	GLfloat y1 = 0;
 
-			GLubyte r = colors[i - 2][j - 2].r;
-			GLubyte g = colors[i - 2][j - 2].g;
-			GLubyte b = colors[i - 2][j - 2].b;
-			glColor3ub(r, g, b);
+	GLfloat height =0.7;
+	drawBuilding(x0, y0, x1, y1, height, img1);
 
-			if (height <= 0) {
-				height = 0;
-				glColor3f(117.0 / 255.0, 148.0 / 255.0, 101.0 / 255.0);
 
-			}
-			//walkway
-			if (i == 1 || i == 5 || j == 0 || j == 1 || j == 5) {
-				height = 0.03;
-				glColor3f(0.6, 0.6, 0.6);
-			}
-			//road
-			if (i == 0 || i == 6 || j == 6) {
-				height = 0;
-				glColor3f(0.3, 0.3, 0.3);
-			}
+	// building 2
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
+	 x0 = 0.1;
+	 y0 = 0.1;
+	 x1 = 0.32;
+	 y1 = 0.32;
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
+	height = 0.4;
+	glColor3f(0.7, 0.7, 0.7);
+	drawBuilding(x0, y0, x1, y1, height, img2);
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
 
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
+	// walkway
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
+	x0 = -0.35;
+	y0 = -0.35;
+	x1 = 0.35;
+	y1 = 0.35;
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
+	height = 0.03;
+	glColor3f(0.6, 0.6, 0.6);
+	drawWalkway(x0, y0, x1, y1, height, img3);
+
+	glPopMatrix();
+
+}
+
+
+inline void bigBuilding(ofImage img1, ofImage img2) {
+	glPushMatrix();
+
+	glRotated(-90, 1, 0, 0);
+
+	// main building
+
+	GLfloat x0 = -0.2;
+	GLfloat y0 = -0.2;
+	GLfloat x1 = 0.2;
+	GLfloat y1 = 0.2;
+
+	GLfloat height = 1.1;
+	glColor3f(0.7, 0.7, 0.7);
+	drawBuilding(x0, y0, x1, y1, height, img1);
+
+
+	// walkway
+
+	 x0 = -0.35;
+	 y0 = -0.35;
+	 x1 = 0.35;
+	 y1 = 0.35;
+
+	height = 0.03;
+	glColor3f(0.6, 0.6, 0.6);
+	drawWalkway(x0, y0, x1, y1, height, img2);
+
 	glPopMatrix();
 }
 
 
-inline void building1(GLint m, GLint n, GLfloat randomHeights[3][3], ofColor colors[3][3]) {
+inline void building2(ofImage img1, ofImage img2) {
+
 
 	glPushMatrix();
 	glRotated(-90, 1, 0, 0);
 
-	GLfloat x_start = -0.5;
-	GLfloat y_start = -0.5;
+	// main building
 
-	GLfloat x_step = 1.0 / GLfloat(m);
-	GLfloat y_step = 1.0 / GLfloat(n);
+	GLfloat x0 = -0.2;
+	GLfloat y0 = -0.2;
+	GLfloat x1 = 0.2;
+	GLfloat y1 = 0.2;
 
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-
-			GLfloat x0 = i * x_step + x_start;
-			GLfloat y0 = j * y_step + y_start;
-			GLfloat x1 = (i + 1) * x_step + x_start;
-			GLfloat y1 = (j + 1) * y_step + y_start;
+	GLfloat height = 0.6;
+	glColor3f(0.7, 0.7, 0.7);
+	drawBuilding(x0, y0, x1, y1, height, img1);
 
 
-			GLfloat height = randomHeights[i - 2][j - 2];
+	// walkway
 
-			GLubyte r = colors[i - 2][j - 2].r;
-			GLubyte g = colors[i - 2][j - 2].g;
-			GLubyte b = colors[i - 2][j - 2].b;
-			glColor3ub(r, g, b);
+	x0 = -0.35;
+	y0 = -0.35;
+	x1 = 0.35;
+	y1 = 0.5;
 
-			if (height <= 0) {
-				height = 0;
-				glColor3f(117.0 / 255.0, 148.0 / 255.0, 101.0 / 255.0);
+	height = 0.03;
+	glColor3f(0.6, 0.6, 0.6);
+	drawWalkway(x0, y0, x1, y1, height, img2);
 
-			}
-			//walkway
-			if (i == 1 || i == 5 || j == 1 || j == 5 || j == 6) {
-				height = 0.03;
-				glColor3f(0.6, 0.6, 0.6);
-			}
-			//road
-			if (i == 0 || i == 6 || j == 0) {
-				height = 0;
-				glColor3f(0.3, 0.3, 0.3);
-			}
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x0, -y1, 0);
-			glEnd();
+	glPopMatrix();
+}
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, height);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x0, -y1, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
+inline void building1(ofImage img1, ofImage img2) {
 
-			glBegin(GL_QUADS);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x1, -y0, height);
-			glEnd();
+	glPushMatrix();
+	glRotated(-90, 1, 0, 0);
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y0, 0);
-			glVertex3f(x1, -y0, 0);
-			glVertex3f(x1, -y0, height);
-			glVertex3f(x0, -y0, height);
-			glEnd();
+	// main building
 
-			glBegin(GL_QUADS);
-			glVertex3f(x0, -y1, 0);
-			glVertex3f(x1, -y1, 0);
-			glVertex3f(x1, -y1, height);
-			glVertex3f(x0, -y1, height);
-			glEnd();
-		}
-	}
+	GLfloat x0 = -0.2;
+	GLfloat y0 = 0;
+	GLfloat x1 = 0.2;
+	GLfloat y1 = 0.3;
+
+	GLfloat height = 0.75;
+	glColor3f(0.7, 0.7, 0.7);
+	drawBuilding(x0, y0, x1, y1, height, img1);
+
+	 x0 = 0.2;
+	 y0 = 0;
+	 x1 = -0.2;
+	 y1 = -0.3;
+
+	 height = 0.75;
+	glColor3f(0.7, 0.7, 0.7);
+	drawBuilding(x0, y0, x1, y1, height, img1);
+
+	// walkway
+
+	x0 = -0.35;
+	y0 = -0.5;
+	x1 = 0.35;
+	y1 = 0.35;
+
+	height = 0.03;
+	glColor3f(0.6, 0.6, 0.6);
+	drawWalkway(x0, y0, x1, y1, height, img2);
+
+
+
 	glPopMatrix();
 
 }
@@ -826,7 +634,11 @@ inline void building1(GLint m, GLint n, GLfloat randomHeights[3][3], ofColor col
 
 inline void figure() {
 
+	glPushMatrix();
+
 	GLfloat p = 0.5;
+	glRotated(-90, 1, 0, 0);
+
 	glBegin(GL_QUADS);
 
 	glVertex3f(-p, -p, p);
@@ -860,10 +672,104 @@ inline void figure() {
 	glVertex3f(p, -p, -p);
 
 	glEnd();
+	glPopMatrix();
 
 }
 
 
+inline void malha_unit_yup(GLint m, GLint n) {
+	GLfloat x_start = -0.5;
+	GLfloat y_start = -0.5;
+	GLfloat x_step = 1.0 / GLfloat(m);
+	GLfloat y_step = 1.0 / GLfloat(n);
 
+	glNormal3f(0, 0, 1);
+	glBegin(GL_QUADS);
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			glVertex3f(i * x_step + x_start, j * y_step + y_start, 0);
+			glVertex3f((i + 1) * x_step + x_start, j * y_step + y_start, 0);
+			glVertex3f((i + 1) * x_step + x_start, (j + 1) * y_step + y_start, 0);
+			glVertex3f(i * x_step + x_start, (j + 1) * y_step + y_start, 0);
+		}
+	}
+	glEnd();
+}
+
+
+
+
+
+
+inline GLfloat getMultiNoise(float x, float y, float f[], float a[], int numBands) {
+
+	float noise = 0;
+	float maxAmp = 0.;
+
+	for (int i = 0; i < numBands; i++) {
+		noise += a[i] * ofNoise(f[i] * x, f[i] * y);
+		maxAmp += a[i];
+	}
+	return noise / maxAmp;
+}
+
+
+inline void sphereSkyBox(int res) {
+
+	glRotated(-90, 1, 0, 0);
+
+	float dtheta = PI / float(res);
+	float dphi = 2 * PI / float(res);
+
+
+
+	for (int i = 0; i < res; i++) {
+		for (int j = 0; j < res; j++) {
+			glBegin(GL_QUADS);
+
+			float x1 = sin(i * dtheta) * cos(j * dphi);
+			float y1 = sin(i * dtheta) * sin(j * dphi);
+			float z1 = cos(i * dtheta);
+			float tx1 = i / float(res);
+			float ty1 = j / float(res);
+			ofVec3f n1 = ofVec3f(-x1, -y1, -z1);
+			glTexCoord2f(ty1, tx1);
+			glNormal3f(n1.x, n1.y, n1.z);
+			glVertex3f(x1, y1, z1);
+
+			float x2 = sin(i * dtheta) * cos((j + 1) * dphi);
+			float y2 = sin(i * dtheta) * sin((j + 1) * dphi);
+			float z2 = cos(i * dtheta);
+			float tx2 = i / float(res);
+			float ty2 = (j + 1) / float(res);
+			ofVec3f n2 = ofVec3f(-x2, -y2, -z2);
+			glTexCoord2f(ty2, tx2);
+			glNormal3f(n2.x, n2.y, n2.z);
+			glVertex3f(x2, y2, z2);
+
+			float x3 = sin((i + 1) * dtheta) * cos((j + 1) * dphi);
+			float y3 = sin((i + 1) * dtheta) * sin((j + 1) * dphi);
+			float z3 = cos((i + 1) * dtheta);
+			float tx3 = (i + 1) / float(res);
+			float ty3 = (j + 1) / float(res);
+			ofVec3f n3 = ofVec3f(-x3, -y3, -z3);
+			glTexCoord2f(ty3, tx3);
+			glNormal3f(n3.x, n3.y, n3.z);
+			glVertex3f(x3, y3, z3);
+
+			float x4 = sin((i + 1) * dtheta) * cos(j * dphi);
+			float y4 = sin((i + 1) * dtheta) * sin(j * dphi);
+			float z4 = cos((i + 1) * dtheta);
+			float tx4 = (i + 1) / float(res);
+			float ty4 = j / float(res);
+			ofVec3f n4 = ofVec3f(-x4, -y4, -z4);
+			glTexCoord2f(ty4, tx4);
+			glNormal3f(n4.x, n4.y, n4.z);
+			glVertex3f(x4, y4, z4);
+
+			glEnd();
+		}
+	}
+}
 
 #endif
